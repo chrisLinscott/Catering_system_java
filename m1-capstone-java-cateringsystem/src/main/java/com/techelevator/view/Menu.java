@@ -1,5 +1,11 @@
 package com.techelevator.view;
 
+import com.techelevator.filereader.InventoryFileReader;
+import com.techelevator.items.CateringItem;
+
+import java.io.FileNotFoundException;
+import java.sql.SQLOutput;
+import java.util.Map;
 import java.util.Scanner;
 
 /*
@@ -21,4 +27,43 @@ public class Menu {
 		System.out.println("*************************");
 		System.out.println();
 	}
+
+	public void showCateringItems (Map<String, CateringItem> showUser){
+		System.out.println("Catering Menu is Listed Below");
+		System.out.println();
+		System.out.println("Product Code      Item Name      Quantity Available     Price"   );
+		for ( Map.Entry<String, CateringItem> mapEntry : showUser.entrySet()) {
+			System.out.print("    "+ mapEntry.getValue().getProductCode()+ "       ");
+			System.out.print("    " +mapEntry.getValue().getItemName()+"           " );
+			System.out.print(mapEntry.getValue().getQuantity()+ " " );
+			System.out.println("$" +mapEntry.getValue().getPrice());
+		}
+		System.out.println();
+	}
+
+	public  void fileNotFoundError(){
+		System.out.println("File not found");
+	}
+	public  String printStartingMenu() {
+		System.out.println("Select and option below to proceed");
+		System.out.println("(1) Display Catering Items");
+		System.out.println("(2) Order");
+		System.out.println("(3) Quit");
+		Scanner scanner=new Scanner(System.in);
+		String userInput= scanner.nextLine();
+		return userInput;
+	}
+
+public String printSubMenu2(){
+	System.out.println("Select and option below to proceed");
+	System.out.println("(1) Add Money");
+	System.out.println("(2) Select Products");
+	System.out.println("(3) Complete Transaction");
+	Scanner scanner=new Scanner(System.in);
+	String userInput= scanner.nextLine();
+	return userInput;
 }
+
+}
+
+
