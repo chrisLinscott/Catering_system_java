@@ -63,7 +63,7 @@ public String printSubMenu2(){
 	String userInput= scanner.nextLine();
 	return userInput;
 }
-public void printAddedMoney (){
+public float printAddedMoney (){
 	System.out.println("How much money would you like to add?");
 	Scanner moneyScanner = new Scanner(System.in);
 	String moneyToAdd = moneyScanner.nextLine();
@@ -73,7 +73,7 @@ public void printAddedMoney (){
 
 		// this is supposed to bring us back to our menu options...
 	printSubMenu2();
-
+return moneyToAddFloat;
 }
 }
 

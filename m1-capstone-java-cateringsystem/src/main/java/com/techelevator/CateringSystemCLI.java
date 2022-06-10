@@ -49,7 +49,7 @@ public class CateringSystemCLI {
 		DisplayCateringItems();
 		Order();
 		AddMoney();
-
+		customer.addMoney(menu.printAddedMoney());
 		//	while (true) {
 			/*
 			Display the Starting Menu and get the users choice.
