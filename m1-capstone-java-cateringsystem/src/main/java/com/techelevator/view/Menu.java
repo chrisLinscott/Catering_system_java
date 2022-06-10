@@ -44,36 +44,44 @@ public class Menu {
 	public  void fileNotFoundError(){
 		System.out.println("File not found");
 	}
-	public  String printStartingMenu() {
+	public  void printStartingMenu() {
 		System.out.println("Select and option below to proceed");
 		System.out.println("(1) Display Catering Items");
 		System.out.println("(2) Order");
 		System.out.println("(3) Quit");
+
+	}
+	public String menuOutput(){
 		Scanner scanner=new Scanner(System.in);
 		String userInput= scanner.nextLine();
 		return userInput;
 	}
-
-public String printSubMenu2(){
-	System.out.println("Select and option below to proceed");
+public void printSubMenu2(){
+		System.out.println("Select an option below to proceed");
 	System.out.println("(1) Add Money");
 	System.out.println("(2) Select Products");
 	System.out.println("(3) Complete Transaction");
-	Scanner scanner=new Scanner(System.in);
-	String userInput= scanner.nextLine();
-	return userInput;
+//	Scanner scanner=new Scanner(System.in);
+//	String userInput= scanner.nextLine();
+//	return userInput;
 }
-public float printAddedMoney (){
+	public float moneyMenuOutput() {
+		Scanner scanner = new Scanner(System.in);
+		String moneyToAdd = scanner.nextLine();
+		Float moneyToAddFloat = Float.parseFloat(moneyToAdd);
+		return moneyToAddFloat;
+	}
+public void printAddedMoney (){
 	System.out.println("How much money would you like to add?");
-	Scanner moneyScanner = new Scanner(System.in);
-	String moneyToAdd = moneyScanner.nextLine();
-	Float moneyToAddFloat = Float.parseFloat(moneyToAdd);
+//	Scanner moneyScanner = new Scanner(System.in);
+//	String moneyToAdd = moneyScanner.nextLine();
+//	Float moneyToAddFloat = Float.parseFloat(moneyToAdd);
 
-	System.out.println("$"+ moneyToAddFloat + " is being added to your balance");
+	System.out.println("$"+ moneyMenuOutput() +   " is being added to your balance");
 
 		// this is supposed to bring us back to our menu options...
 	printSubMenu2();
-return moneyToAddFloat;
+//return moneyToAddFloat;
 }
 }
 

@@ -6,21 +6,25 @@ import java.util.Map ;
 
 
 public class Customer {
-    private double currentAccountBalance;
-    private double startingBalance = 0.0;
+    private float currentAccountBalance;
+    private float startingBalance = 0;
     private Map<String, Integer> shoppingCart;
 
     private Menu menu;
 
-    public double getCurrentAccountBalance() {
+    public float getCurrentAccountBalance() {
         return currentAccountBalance;
     }
 
-    public double getStartingBalance() {
+    public void setCurrentAccountBalance(float currentAccountBalance) {
+        this.currentAccountBalance = currentAccountBalance;
+    }
+
+    public float getStartingBalance() {
         return startingBalance;
     }
 
-    public double addMoney(double moneyToAdd) {
+    public float addMoney(float moneyToAdd) {
         currentAccountBalance = currentAccountBalance + moneyToAdd;
         return currentAccountBalance;
     }

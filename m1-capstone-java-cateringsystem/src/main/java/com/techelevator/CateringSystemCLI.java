@@ -31,7 +31,7 @@ public class CateringSystemCLI {
 	private InventoryFileReader inventoryFileReader;
 	private Menu menu;
 	Map<String, CateringItem> cateringItemMap = null;
-	private Customer customer;
+	private Customer customer= new Customer();
 
 	public CateringSystemCLI(Menu menu) {
 		this.menu = menu;
@@ -46,11 +46,45 @@ public class CateringSystemCLI {
 		//	menu.printStartingMenu();
 
 
-		DisplayCateringItems();
-		Order();
-		AddMoney();
-		customer.addMoney(menu.printAddedMoney());
-		//	while (true) {
+		//	menu.printStartingMenu();
+		inventoryFileReader = new InventoryFileReader("cateringsystem.csv");
+		menu.printStartingMenu();
+		try {
+			cateringItemMap = inventoryFileReader.readFileInventory();
+		} catch (FileNotFoundException e){
+			menu.fileNotFoundError();}
+
+//		DisplayCateringItems();
+//		Order();
+//		AddMoney();
+//		customer.addMoney(menu.printAddedMoney());
+		while (true) {
+			String menuOneOutput= menu.menuOutput();
+			if (menuOneOutput.equals("1")) {
+
+				menu.PrintCateringItems(cateringItemMap);
+			}	else if (menuOneOutput.equals("2")) {
+				menu.printSubMenu2();
+				break;
+			}
+			else {
+				break;	}
+		}
+
+		while (true) {
+			String menuTwoOutput= menu.menuOutput();
+			if (menuTwoOutput.equals("1")) {
+				menu.printAddedMoney();
+			//	customer.setCurrentAccountBalance(0);
+
+				customer.addMoney(menu.moneyMenuOutput());
+			}	else if (menuTwoOutput.equals("2")) {
+				menu.PrintCateringItems(cateringItemMap);
+
+			}
+			else {
+				break;	}
+		}
 			/*
 			Display the Starting Menu and get the users choice.
 			Remember all uses of System.out and System.in should be in the menu
@@ -77,29 +111,19 @@ public class CateringSystemCLI {
 
 	}
 
-	public void DisplayCateringItems() {
-		if (menu.printStartingMenu().equals("1"))
-			inventoryFileReader = new InventoryFileReader("cateringsystem.csv");
-		try {
-			cateringItemMap = inventoryFileReader.readFileInventory();
-		} catch (FileNotFoundException e) {
-			menu.fileNotFoundError();
-		}
-		menu.PrintCateringItems(cateringItemMap);
 
-	}
 
-	public void Order() {
-		if (menu.printStartingMenu().equals("2")) {
-
-		}
-	}
-	public void AddMoney(){
-		if(menu.printSubMenu2().equals("1")) {
-			menu.printAddedMoney();
-		//	customer.getCurrentAccountBalance()
-
-		}
+//	public void Order() {
+//		if (menu.printStartingMenu().equals("2")) {
+//
+//		}
+//	}
+//	public void AddMoney(){
+//		if(menu.printSubMenu2().equals("1")) {
+//			menu.printAddedMoney();
+//		//	customer.getCurrentAccountBalance()
+//
+//		}
 
 
 
@@ -107,6 +131,6 @@ public class CateringSystemCLI {
 
 	}
 
-	}
+
 
 
