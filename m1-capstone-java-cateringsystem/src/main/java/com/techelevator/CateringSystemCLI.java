@@ -10,6 +10,7 @@ import com.techelevator.items.ShoppingCart;
 
 import java.io.FileNotFoundException;
 import java.io.FilterOutputStream;
+import java.util.HashMap;
 import java.util.Map;
 
 /*
@@ -88,16 +89,16 @@ public class CateringSystemCLI {
 
                 menu.printAddedMoney();
                 Float addingToBalance = menu.moneyMenuOutput();
-                if(addingToBalance<=500 && customer.getCurrentAccountBalance()<1500){
+                if (addingToBalance <= 500 && customer.getCurrentAccountBalance() < 1500) {
                     customer.addMoney(addingToBalance);
 
                     menu.showAddedToBalance(addingToBalance);
                     Float workingBalance = customer.getCurrentAccountBalance();
-                menu.ShowCurrentBalance(workingBalance);
+                    menu.ShowCurrentBalance(workingBalance);
 
                 } else {
                     Float workingBalance = customer.getCurrentAccountBalance();
-                    menu.printSubMenu2() ;
+                    menu.printSubMenu2();
                     menu.ShowCurrentBalance(workingBalance);
 
                 }
@@ -105,20 +106,23 @@ public class CateringSystemCLI {
 
             } else if (menuTwoOutput.equals("2")) {
                 menu.PrintCateringItems(cateringItemMap);
-            menu.ShowCustomerPurchase();
-                String itemsProductCode=menu.menuOutput();
-                if(cateringItemMap.containsKey(itemsProductCode)){
+                menu.ShowCustomerPurchase();
+                String itemsProductCode = menu.menuOutput();
+                if (cateringItemMap.containsKey(itemsProductCode)) {
 
-                    menu.UserEnteredQuantity();}
-               int quantityDesired=menu.PurchaseMenuOutput();
+                    menu.UserEnteredQuantity();
+                }
+                int quantityDesired = menu.PurchaseMenuOutput();
 
-                if(cateringItemMap.get(itemsProductCode).getQuantity()>=quantityDesired && customer.getCurrentAccountBalance()>=cateringItemMap.get(itemsProductCode).getPrice() * quantityDesired){
+                if (cateringItemMap.get(itemsProductCode).getQuantity() >= quantityDesired && customer.getCurrentAccountBalance() >= cateringItemMap.get(itemsProductCode).getPrice() * quantityDesired) {
+                    Map<String, Integer> newCart = new HashMap<>();
+                    newCart.put(itemsProductCode, quantityDesired);
 
+                    // shoppingCart=new ShoppingCart()
+                    //
+                    //  if(quantityDesired* cateringItemMap.get(menu.menuOutput())<= customer.getCurrentAccountBalance() )
 
-              //
-                //  if(quantityDesired* cateringItemMap.get(menu.menuOutput())<= customer.getCurrentAccountBalance() )
-
-            }
+                }
             } else {
                 break;
             }
@@ -134,9 +138,6 @@ public class CateringSystemCLI {
 			*/
 
     }
-
-
-
 
 
 }

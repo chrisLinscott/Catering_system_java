@@ -19,7 +19,7 @@ import java.util.Scanner;
  */
 public class Menu {
 	
-	private static final Scanner in = new Scanner(System.in);
+	private static final Scanner userInput = new Scanner(System.in);
 private Customer customer;
 	public void showWelcomeMessage() {
 		System.out.println("*************************");
@@ -53,9 +53,7 @@ private Customer customer;
 
 	}
 	public String menuOutput(){
-		Scanner scanner=new Scanner(System.in);
-		String userInput= scanner.nextLine();
-		return userInput;
+		return userInput.nextLine();
 	}
 public void printSubMenu2(){
 		System.out.println("Select an option below to proceed");
@@ -65,9 +63,7 @@ public void printSubMenu2(){
 
 }
 	public float moneyMenuOutput() {
-		Scanner scanner = new Scanner(System.in);
-		String moneyToAdd = scanner.nextLine();
-		Float moneyToAddFloat = Float.parseFloat(moneyToAdd);
+		Float moneyToAddFloat = Float.parseFloat(userInput.nextLine());
 		return moneyToAddFloat;
 	}
 public void printAddedMoney (){
@@ -87,9 +83,7 @@ public void ShowCustomerPurchase(){
 	System.out.println("Please enter the product code for the item you would like to buy");
 }
 	public int PurchaseMenuOutput(){
-		Scanner scanner=new Scanner(System.in);
-		String userInput= scanner.nextLine();
-		int userInputInt=Integer.parseInt(userInput);
+		int userInputInt=Integer.parseInt(userInput.nextLine());
 		return userInputInt;
 	}
 	public void UserEnteredQuantity (){
