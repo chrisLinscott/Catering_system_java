@@ -5,6 +5,7 @@ import com.techelevator.items.CateringItem;
 import com.techelevator.view.Menu;
 import com.techelevator.CateringSystem;
 import com.techelevator.items.Customer;
+import com.techelevator.items.ShoppingCart;
 
 
 import java.io.FileNotFoundException;
@@ -33,6 +34,7 @@ public class CateringSystemCLI {
     private InventoryFileReader inventoryFileReader;
     private Menu menu;
     private Customer customer = new Customer();
+    private ShoppingCart shoppingCart;
 
     public CateringSystemCLI(Menu menu) {
         this.menu = menu;
@@ -104,10 +106,15 @@ public class CateringSystemCLI {
             } else if (menuTwoOutput.equals("2")) {
                 menu.PrintCateringItems(cateringItemMap);
             menu.ShowCustomerPurchase();
-            if(cateringItemMap.containsKey(menu.menuOutput())){
+                String itemsProductCode=menu.menuOutput();
+                if(cateringItemMap.containsKey(itemsProductCode)){
+
+                    menu.UserEnteredQuantity();}
                int quantityDesired=menu.PurchaseMenuOutput();
 
-                menu.UserEnteredQuantity();
+                if(cateringItemMap.get(itemsProductCode).getQuantity()>=quantityDesired && customer.getCurrentAccountBalance()>=cateringItemMap.get(itemsProductCode).getPrice() * quantityDesired){
+
+
               //
                 //  if(quantityDesired* cateringItemMap.get(menu.menuOutput())<= customer.getCurrentAccountBalance() )
 
