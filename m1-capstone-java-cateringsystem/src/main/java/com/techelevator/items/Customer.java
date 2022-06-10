@@ -16,9 +16,7 @@ public class Customer {
         return currentAccountBalance;
     }
 
-    public void setCurrentAccountBalance(float currentAccountBalance) {
-        this.currentAccountBalance = currentAccountBalance;
-    }
+
 
     public float getStartingBalance() {
         return startingBalance;
@@ -29,5 +27,5 @@ public class Customer {
         return currentAccountBalance;
     }
 
+    }
 
-}

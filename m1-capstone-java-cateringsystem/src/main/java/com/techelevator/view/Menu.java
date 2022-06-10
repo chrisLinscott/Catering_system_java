@@ -2,6 +2,7 @@ package com.techelevator.view;
 
 import com.techelevator.filereader.InventoryFileReader;
 import com.techelevator.items.CateringItem;
+import com.techelevator.items.Customer;
 
 import java.io.FileNotFoundException;
 import java.sql.SQLOutput;
@@ -19,7 +20,7 @@ import java.util.Scanner;
 public class Menu {
 	
 	private static final Scanner in = new Scanner(System.in);
-
+private Customer customer;
 	public void showWelcomeMessage() {
 		System.out.println("*************************");
 		System.out.println("**     Weyland Corp.   **");
@@ -61,9 +62,7 @@ public void printSubMenu2(){
 	System.out.println("(1) Add Money");
 	System.out.println("(2) Select Products");
 	System.out.println("(3) Complete Transaction");
-//	Scanner scanner=new Scanner(System.in);
-//	String userInput= scanner.nextLine();
-//	return userInput;
+
 }
 	public float moneyMenuOutput() {
 		Scanner scanner = new Scanner(System.in);
@@ -72,17 +71,32 @@ public void printSubMenu2(){
 		return moneyToAddFloat;
 	}
 public void printAddedMoney (){
-	System.out.println("How much money would you like to add?");
-//	Scanner moneyScanner = new Scanner(System.in);
-//	String moneyToAdd = moneyScanner.nextLine();
-//	Float moneyToAddFloat = Float.parseFloat(moneyToAdd);
+	System.out.println("How much money would you like to add(up to $500.00)?");
 
-	System.out.println("$"+ moneyMenuOutput() +   " is being added to your balance");
-
-		// this is supposed to bring us back to our menu options...
-	printSubMenu2();
-//return moneyToAddFloat;
 }
+public void showAddedToBalance(float amountAdded){
+	System.out.println("$"+ amountAdded +   " is being added to your balance");
+	//System.out.println("Current Balance = "+ ());
+	// this is supposed to bring us back to our menu options...
+	printSubMenu2();
+}
+public void ShowCurrentBalance(float balance){
+	System.out.println("Your current balance is $"+ balance );
+}
+public void ShowCustomerPurchase(){
+	System.out.println("Please enter the product code for the item you would like to buy");
+}
+	public int PurchaseMenuOutput(){
+		Scanner scanner=new Scanner(System.in);
+		String userInput= scanner.nextLine();
+		int userInputInt=Integer.parseInt(userInput);
+		return userInputInt;
+	}
+	public void UserEnteredQuantity (){
+		System.out.println("Thanks, please enter the quantity");
+
+
+	}
 }
 
 
