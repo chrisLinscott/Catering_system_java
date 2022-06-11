@@ -2,14 +2,11 @@ package com.techelevator;
 
 import com.techelevator.filereader.InventoryFileReader;
 import com.techelevator.items.CateringItem;
-import com.techelevator.view.Menu;
-import com.techelevator.CateringSystem;
 import com.techelevator.items.Customer;
 import com.techelevator.items.ShoppingCart;
-
+import com.techelevator.view.Menu;
 
 import java.io.FileNotFoundException;
-import java.io.FilterOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
