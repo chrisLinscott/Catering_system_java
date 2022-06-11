@@ -70,11 +70,12 @@ public void printAddedMoney (){
 	System.out.println("How much money would you like to add(up to $500.00)?");
 
 }
-public void showAddedToBalance(float amountAdded){
-	System.out.println("$"+ amountAdded +   " is being added to your balance");
-	//System.out.println("Current Balance = "+ ());
-	// this is supposed to bring us back to our menu options...
-	printSubMenu2();
+// redundant because we are printing account balance anyways
+// public void showAddedToBalance(float amountAdded){
+//	System.out.println("$"+ amountAdded +   " is being added to your balance");
+//	//System.out.println("Current Balance = "+ ());
+//	// this is supposed to bring us back to our menu options...
+//	printSubMenu2();
 }
 public void ShowCurrentBalance(float balance){
 	System.out.println("Your current balance is $"+ balance );

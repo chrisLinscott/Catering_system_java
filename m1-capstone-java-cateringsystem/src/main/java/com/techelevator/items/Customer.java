@@ -6,33 +6,10 @@ import java.util.Map ;
 
 
 public class Customer{
-    private float currentAccountBalance;
-    private float startingBalance = 0;
-    private Map<String, Integer> shoppingCart;
 
 
     private Menu menu;
 
-    public float getCurrentAccountBalance() {
-        return currentAccountBalance;
-    }
-
-
-    public float getStartingBalance() {
-        return startingBalance;
-    }
-
-    public float addMoney(float moneyToAdd) {
-        currentAccountBalance = currentAccountBalance + moneyToAdd;
-        return currentAccountBalance;
-
-    }    public Map<String, Integer> getShoppingCart() {
-        return shoppingCart;
-    }
-
-    public void setShoppingCart(Map<String, Integer> shoppingCart) {
-        this.shoppingCart = shoppingCart;
-    }
 
     }
 

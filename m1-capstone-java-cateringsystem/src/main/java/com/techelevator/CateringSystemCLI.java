@@ -2,14 +2,11 @@ package com.techelevator;
 
 import com.techelevator.filereader.InventoryFileReader;
 import com.techelevator.items.CateringItem;
-import com.techelevator.view.Menu;
-import com.techelevator.CateringSystem;
-import com.techelevator.items.Customer;
+import com.techelevator.items.cateringSystem;
 import com.techelevator.items.ShoppingCart;
-
+import com.techelevator.view.Menu;
 
 import java.io.FileNotFoundException;
-import java.io.FilterOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +31,7 @@ public class CateringSystemCLI {
      */
     private InventoryFileReader inventoryFileReader;
     private Menu menu;
-    private Customer customer = new Customer();
+    private CateringSystem cateringSystem;
     private ShoppingCart shoppingCart;
 
     public CateringSystemCLI(Menu menu) {
@@ -59,54 +56,62 @@ public class CateringSystemCLI {
      * Your application starts here
      */
     public void run() {
-
+//run method very short, only runs program, will use another method to run sub-menus
         menu.showWelcomeMessage();
 
         inventoryFileReader = new InventoryFileReader("cateringsystem.csv");
+        CateringSystem cateringSystem = new CateringSystem(inventoryFileReader.getCateringItemMap());
         menu.printStartingMenu();
         try {
+            //this is probably not necessary....TBD
             cateringItemMap = inventoryFileReader.readFileInventory();
         } catch (FileNotFoundException e) {
             menu.fileNotFoundError();
         }
         while (true) {
             String menuOneOutput = menu.menuOutput();
+            // next two lines are ok, cant make more concise
             if (menuOneOutput.equals("1")) {
-
                 menu.PrintCateringItems(cateringItemMap);
             } else if (menuOneOutput.equals("2")) {
-                menu.printSubMenu2();
-                break;
+                //instead of our previous break, go to next method
+                runSubMenuTwo();
             } else {
                 break;
             }
         }
 
-        while (true) {
-            String menuTwoOutput = menu.menuOutput();
+    }
+
+    private void runSubMenuTwo() {
+        //print sub-menu before loop
+        menu.printSubMenu2();
+            
+        String menuTwoOutput = menu.menuOutput();
+        //remove the customer class to simplify , pulling info just from cateringSystem to CLI?
 
             if (menuTwoOutput.equals("1")) {
 
                 menu.printAddedMoney();
                 Float addingToBalance = menu.moneyMenuOutput();
-                if (addingToBalance <= 500 && customer.getCurrentAccountBalance() < 1500) {
-                    customer.addMoney(addingToBalance);
+                    cateringSystem.addMoney(addingToBalance);
 
-                    menu.showAddedToBalance(addingToBalance);
-                    Float workingBalance = customer.getCurrentAccountBalance();
+                   // redundant menu.showAddedToBalance(addingToBalance);
+                    Float workingBalance = cateringSystem.getCurrentAccountBalance();
                     menu.ShowCurrentBalance(workingBalance);
+                       runSubMenuTwo();
 
                 } else {
-                    Float workingBalance = customer.getCurrentAccountBalance();
+                    Float workingBalance = cateringSystem.getCurrentAccountBalance();
                     menu.printSubMenu2();
                     menu.ShowCurrentBalance(workingBalance);
 
                 }
 
-
-            } else if (menuTwoOutput.equals("2")) {
+// this needs to be a method to put items in cart in CateringSystem.
+            } else if (menuOutput.equals("2")) {
                 menu.PrintCateringItems(cateringItemMap);
-                menu.ShowCustomerPurchase();
+               // menu.ShowcateringSystemPurchase();
                 String itemsProductCode = menu.menuOutput();
                 if (cateringItemMap.containsKey(itemsProductCode)) {
 
@@ -114,17 +119,17 @@ public class CateringSystemCLI {
                 }
                 int quantityDesired = menu.PurchaseMenuOutput();
 
-                if (cateringItemMap.get(itemsProductCode).getQuantity() >= quantityDesired && customer.getCurrentAccountBalance() >= cateringItemMap.get(itemsProductCode).getPrice() * quantityDesired) {
+                if (cateringItemMap.get(itemsProductCode).getQuantity() >= quantityDesired && cateringSystem.getCurrentAccountBalance() >= cateringItemMap.get(itemsProductCode).getPrice() * quantityDesired) {
                     Map<String, Integer> newCart = new HashMap<>();
                     newCart.put(itemsProductCode, quantityDesired);
 
                     // shoppingCart=new ShoppingCart()
                     //
-                    //  if(quantityDesired* cateringItemMap.get(menu.menuOutput())<= customer.getCurrentAccountBalance() )
+                    //  if(quantityDesired* cateringItemMap.get(menu.menuOutput())<= cateringSystem.getCurrentAccountBalance() )
 
                 }
             } else {
-                break;
+
             }
         }
 			/*

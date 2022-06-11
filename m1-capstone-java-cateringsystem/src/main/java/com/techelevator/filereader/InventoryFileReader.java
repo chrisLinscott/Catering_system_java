@@ -16,6 +16,7 @@ public class InventoryFileReader {
 
 
     private String inventoryFileName;
+    private Map<String, CateringItem> cateringItemMap = new TreeMap<>();
 
 
 
@@ -26,7 +27,7 @@ public class InventoryFileReader {
     }
 
     public Map<String, CateringItem> readFileInventory() throws FileNotFoundException {
-        Map<String, CateringItem> cateringItemMap = new TreeMap<>();
+      //  Map<String, CateringItem> cateringItemMap = new TreeMap<>();
 
         File file = new File(inventoryFileName);
 
@@ -67,4 +68,7 @@ public class InventoryFileReader {
         return cateringItem;
     }
 
+    public Map<String, CateringItem> getCateringItemMap() {
+        return cateringItemMap;
+    }
 }
