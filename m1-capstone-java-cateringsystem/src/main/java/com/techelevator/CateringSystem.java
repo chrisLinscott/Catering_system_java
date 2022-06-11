@@ -5,6 +5,7 @@ import com.techelevator.items.CateringItem;
 import com.techelevator.view.Menu;
 
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -36,7 +37,7 @@ public class CateringSystem {
         return startingBalance;
     }
 
-    public void addMoney(float moneyToAdd) {
+    public void addMoney(Integer moneyToAdd) {
         if (moneyToAdd <= 500 && getCurrentAccountBalance() < 1500)
             currentAccountBalance += moneyToAdd;
 
@@ -45,9 +46,12 @@ public class CateringSystem {
     public Map<String, Integer> getShoppingCart() {
         return shoppingCart;
     }
+    public void addToCart(String itemsProductCode, int quantityDesired){
 
-    public void setShoppingCart(Map<String, Integer> shoppingCart) {
-        this.shoppingCart = shoppingCart;
+        Map<String, Integer> newCart = new HashMap<>();
+        newCart.put(itemsProductCode, quantityDesired);
+
+
     }
 
 

@@ -9,7 +9,7 @@ public class Customer{
 
 
     private Menu menu;
-
+// will remove this class? has been relocated to CateringSystem.
 
     }
 

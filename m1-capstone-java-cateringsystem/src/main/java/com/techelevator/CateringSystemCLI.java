@@ -2,7 +2,7 @@ package com.techelevator;
 
 import com.techelevator.filereader.InventoryFileReader;
 import com.techelevator.items.CateringItem;
-import com.techelevator.items.cateringSystem;
+
 import com.techelevator.items.ShoppingCart;
 import com.techelevator.view.Menu;
 
@@ -32,14 +32,14 @@ public class CateringSystemCLI {
     private InventoryFileReader inventoryFileReader;
     private Menu menu;
     private CateringSystem cateringSystem;
-    private ShoppingCart shoppingCart;
+
 
     public CateringSystemCLI(Menu menu) {
         this.menu = menu;
     }
 
     /*
-     * This starts the application, but you shouldn't need to change it.
+     * This starts the application, but you shouldn't need to change it. // main method calls run method, dont change.
      */
     public static void main(String[] args) {
         Menu menu = new Menu();
@@ -60,7 +60,7 @@ public class CateringSystemCLI {
         menu.showWelcomeMessage();
 
         inventoryFileReader = new InventoryFileReader("cateringsystem.csv");
-        CateringSystem cateringSystem = new CateringSystem(inventoryFileReader.getCateringItemMap());
+        cateringSystem = new CateringSystem(inventoryFileReader.getCateringItemMap());
         menu.printStartingMenu();
         try {
             //this is probably not necessary....TBD
@@ -73,10 +73,11 @@ public class CateringSystemCLI {
             // next two lines are ok, cant make more concise
             if (menuOneOutput.equals("1")) {
                 menu.PrintCateringItems(cateringItemMap);
+                menu.printStartingMenu();
             } else if (menuOneOutput.equals("2")) {
                 //instead of our previous break, go to next method
                 runSubMenuTwo();
-            } else {
+            } else { //this closes the program and should go to exit code , make menu method to display closing message.
                 break;
             }
         }
@@ -93,7 +94,7 @@ public class CateringSystemCLI {
             if (menuTwoOutput.equals("1")) {
 
                 menu.printAddedMoney();
-                Float addingToBalance = menu.moneyMenuOutput();
+                Integer addingToBalance = menu.moneyMenuOutput();
                     cateringSystem.addMoney(addingToBalance);
 
                    // redundant menu.showAddedToBalance(addingToBalance);
@@ -106,10 +107,10 @@ public class CateringSystemCLI {
                     menu.printSubMenu2();
                     menu.ShowCurrentBalance(workingBalance);
 
-                }
+
 
 // this needs to be a method to put items in cart in CateringSystem.
-            } else if (menuOutput.equals("2")) {
+            } if (menu.menuOutput().equals("2")) {
                 menu.PrintCateringItems(cateringItemMap);
                // menu.ShowcateringSystemPurchase();
                 String itemsProductCode = menu.menuOutput();
@@ -118,10 +119,9 @@ public class CateringSystemCLI {
                     menu.UserEnteredQuantity();
                 }
                 int quantityDesired = menu.PurchaseMenuOutput();
-
-                if (cateringItemMap.get(itemsProductCode).getQuantity() >= quantityDesired && cateringSystem.getCurrentAccountBalance() >= cateringItemMap.get(itemsProductCode).getPrice() * quantityDesired) {
-                    Map<String, Integer> newCart = new HashMap<>();
-                    newCart.put(itemsProductCode, quantityDesired);
+            if (cateringItemMap.get(itemsProductCode).getQuantity() >= quantityDesired && cateringSystem.getCurrentAccountBalance() >= cateringItemMap.get(itemsProductCode).getPrice() * quantityDesired) {
+                //calling method to add to cart instead of it all being here
+               cateringSystem.addToCart(itemsProductCode, quantityDesired);
 
                     // shoppingCart=new ShoppingCart()
                     //
@@ -145,7 +145,7 @@ public class CateringSystemCLI {
     }
 
 
-}
+
 
 
 

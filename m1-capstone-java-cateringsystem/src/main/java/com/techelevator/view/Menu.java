@@ -62,8 +62,8 @@ public void printSubMenu2(){
 	System.out.println("(3) Complete Transaction");
 
 }
-	public float moneyMenuOutput() {
-		Float moneyToAddFloat = Float.parseFloat(userInput.nextLine());
+	public Integer moneyMenuOutput() {
+		Integer moneyToAddFloat = Integer.parseInt(userInput.nextLine());
 		return moneyToAddFloat;
 	}
 public void printAddedMoney (){
@@ -76,7 +76,7 @@ public void printAddedMoney (){
 //	//System.out.println("Current Balance = "+ ());
 //	// this is supposed to bring us back to our menu options...
 //	printSubMenu2();
-}
+
 public void ShowCurrentBalance(float balance){
 	System.out.println("Your current balance is $"+ balance );
 }
