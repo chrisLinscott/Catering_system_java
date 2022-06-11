@@ -70,5 +70,6 @@ public class InventoryFileReader {
 
     public Map<String, CateringItem> getCateringItemMap() {
         return cateringItemMap;
+
     }
 }

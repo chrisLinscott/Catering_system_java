@@ -94,6 +94,7 @@ public class CateringSystemCLI {
     }
 
     private void runSubMenuTwo() {
+
         //print sub-menu before loop
 
         menu.printSubMenu2();
@@ -145,16 +146,24 @@ public class CateringSystemCLI {
                 menu.printSubMenu2();
                 menu.ShowCurrentBalance(cateringSystem.updatingBalanceAfterShopping(cateringItemMap.get(itemsProductCode).getPrice(), quantityDesired));
                 //everything above this line is ok.
-                cateringSystem.updatingItemQuantityInMap(itemsProductCode, quantityDesired);
+             // doesnt work right now   cateringSystem.updatingItemQuantityInMap(itemsProductCode, quantityDesired);
                 menu.PrintCateringItems(cateringItemMap);
-
-
-
 
             }
 
+        } else if (menu.menuOutput().equals("3"))
+        {
+
+            menu.printReceipt(cateringItemMap, 3);
+            cateringSystem.makeChange();
+            System.out.println();
+            //resets balance
+            //cateringSystem.resetBalance();
+
 
         }
+
+
 
 
     }
