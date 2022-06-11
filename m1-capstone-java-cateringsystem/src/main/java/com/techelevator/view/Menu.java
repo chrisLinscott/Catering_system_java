@@ -1,11 +1,7 @@
 package com.techelevator.view;
 
-import com.techelevator.filereader.InventoryFileReader;
 import com.techelevator.items.CateringItem;
-import com.techelevator.items.Customer;
 
-import java.io.FileNotFoundException;
-import java.sql.SQLOutput;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -20,7 +16,7 @@ import java.util.Scanner;
 public class Menu {
 	
 	private static final Scanner userInput = new Scanner(System.in);
-private Customer customer;
+
 	public void showWelcomeMessage() {
 		System.out.println("*************************");
 		System.out.println("**     Weyland Corp.   **");
@@ -63,8 +59,8 @@ public void printSubMenu2(){
 
 }
 	public Integer moneyMenuOutput() {
-		Integer moneyToAddFloat = Integer.parseInt(userInput.nextLine());
-		return moneyToAddFloat;
+		Integer moneyToAddInt= Integer.parseInt(userInput.nextLine());
+		return moneyToAddInt;
 	}
 public void printAddedMoney (){
 	System.out.println("How much money would you like to add(up to $500.00)?");
@@ -89,8 +85,9 @@ public void ShowCustomerPurchase(){
 	}
 	public void UserEnteredQuantity (){
 		System.out.println("Thanks, please enter the quantity");
-
-
+	}
+	public void singleLineMessages(String message){
+		System.out.println(message);
 	}
 }
 
