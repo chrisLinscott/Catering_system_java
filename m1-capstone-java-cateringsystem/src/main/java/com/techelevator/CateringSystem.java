@@ -67,8 +67,10 @@ public class CateringSystem {
         return currentAccountBalance;
     }
     public void updatingItemQuantityInMap (String itemsProductCode, int quantityDesired) {
-        updatedItemCount = cateringItemMap.get(itemsProductCode).getQuantity() - quantityDesired;
-        cateringItemMap.put(itemsProductCode,)
+       CateringItem item =cateringItemMap.get(itemsProductCode);
+       item.setQuantity(item.getQuantity()-quantityDesired);
+    //    updatedItemCount = cateringItemMap.get(itemsProductCode).getQuantity() - quantityDesired;
+     //   cateringItemMap.put(itemsProductCode,)
 
     }
 }
