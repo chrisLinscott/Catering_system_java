@@ -2,12 +2,18 @@ package com.techelevator;
 
 import com.techelevator.filereader.InventoryFileReader;
 import com.techelevator.items.CateringItem;
+<<<<<<< HEAD
 import com.techelevator.items.Customer;
 import com.techelevator.items.ShoppingCart;
 import com.techelevator.view.Menu;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;
+=======
+import com.techelevator.view.Menu;
+
+import java.io.FileNotFoundException;
+>>>>>>> 979a68030f5326248d64a13fd65a2379b2bf7fad
 import java.util.Map;
 
 /*
@@ -29,21 +35,26 @@ public class CateringSystemCLI {
      *
      * Remember every class and data structure is a data types and can be passed as arguments to methods or constructors.
      */
-    private InventoryFileReader inventoryFileReader;
+
     private Menu menu;
-    private Customer customer = new Customer();
-    private ShoppingCart shoppingCart;
+    private CateringSystem cateringSystem;
+    private InventoryFileReader inventoryFileReader;
+
 
     public CateringSystemCLI(Menu menu) {
+
         this.menu = menu;
+
     }
 
     /*
-     * This starts the application, but you shouldn't need to change it.
+     * This starts the application, but you shouldn't need to change it. // main method calls run method, dont change.
      */
     public static void main(String[] args) {
         Menu menu = new Menu();
         CateringSystemCLI cli = new CateringSystemCLI(menu);
+
+
         cli.run();
 
 
@@ -56,88 +67,120 @@ public class CateringSystemCLI {
      * Your application starts here
      */
     public void run() {
-
+//run method very short, only runs program, will use another method to run sub-menus, that is called via run.
         menu.showWelcomeMessage();
+        menu.printStartingMenu();
 
         inventoryFileReader = new InventoryFileReader("cateringsystem.csv");
-        menu.printStartingMenu();
         try {
             cateringItemMap = inventoryFileReader.readFileInventory();
         } catch (FileNotFoundException e) {
-            menu.fileNotFoundError();
+            e.printStackTrace();
         }
+        cateringSystem = new CateringSystem(inventoryFileReader.getCateringItemMap());
+
+
+//        try {
+//            //this is probably not necessary....TBD
+//            cateringItemMap = inventoryFileReader.readFileInventory();
+//        } catch (FileNotFoundException e) {
+//            menu.fileNotFoundError();
+//        }
         while (true) {
             String menuOneOutput = menu.menuOutput();
+            // next two lines are ok, cant make more concise
             if (menuOneOutput.equals("1")) {
-
                 menu.PrintCateringItems(cateringItemMap);
+                menu.printStartingMenu();
             } else if (menuOneOutput.equals("2")) {
-                menu.printSubMenu2();
-                break;
-            } else {
-                break;
-            }
-        }
-
-        while (true) {
-            String menuTwoOutput = menu.menuOutput();
-
-            if (menuTwoOutput.equals("1")) {
-
-                menu.printAddedMoney();
-                Float addingToBalance = menu.moneyMenuOutput();
-                if (addingToBalance <= 500 && customer.getCurrentAccountBalance() < 1500) {
-                    customer.addMoney(addingToBalance);
-
-                    menu.showAddedToBalance(addingToBalance);
-                    Float workingBalance = customer.getCurrentAccountBalance();
-                    menu.ShowCurrentBalance(workingBalance);
-
-                } else {
-                    Float workingBalance = customer.getCurrentAccountBalance();
-                    menu.printSubMenu2();
-                    menu.ShowCurrentBalance(workingBalance);
-
-                }
-
-
-            } else if (menuTwoOutput.equals("2")) {
-                menu.PrintCateringItems(cateringItemMap);
-                menu.ShowCustomerPurchase();
-                String itemsProductCode = menu.menuOutput();
-                if (cateringItemMap.containsKey(itemsProductCode)) {
-
-                    menu.UserEnteredQuantity();
-                }
-                int quantityDesired = menu.PurchaseMenuOutput();
-
-                if (cateringItemMap.get(itemsProductCode).getQuantity() >= quantityDesired && customer.getCurrentAccountBalance() >= cateringItemMap.get(itemsProductCode).getPrice() * quantityDesired) {
-                    Map<String, Integer> newCart = new HashMap<>();
-                    newCart.put(itemsProductCode, quantityDesired);
-
-                    // shoppingCart=new ShoppingCart()
-                    //
-                    //  if(quantityDesired* cateringItemMap.get(menu.menuOutput())<= customer.getCurrentAccountBalance() )
-
-                }
-            } else {
+                //instead of our previous break, go to next method
+                runSubMenuTwo();
+            } else { //this closes the program and should go to exit code , make menu method to display closing message.
                 break;
             }
         }
-			/*
-			Display the Starting Menu and get the users choice.
-			Remember all uses of System.out and System.in should be in the menu
-
-			IF the User Choice is Display Catering Items,
-				THEN display catering items
-			ELSE IF the User's Choice is Purchase,
-				THEN go to the purchase menu
-			*/
 
     }
 
+    private void runSubMenuTwo() {
 
+        //print sub-menu before loop
+
+        menu.printSubMenu2();
+
+        String menuTwoOutput = menu.menuOutput();
+        //remove the customer class to simplify , pulling info just from cateringSystem to CLI?
+
+        if (menuTwoOutput.equals("1")) {
+
+            menu.printAddedMoney();
+
+            Integer addingToBalance = menu.moneyMenuOutput();
+            cateringSystem.addMoney(addingToBalance);
+
+            // redundant menu.showAddedToBalance(addingToBalance);
+            Float workingBalance = cateringSystem.getCurrentAccountBalance();
+            menu.ShowCurrentBalance(workingBalance);
+            runSubMenuTwo();
+        }
+//shopping cart---- this is really long...
+        if (menu.menuOutput().equals("2")) {
+
+            menu.PrintCateringItems(cateringItemMap);
+            menu.ShowCustomerPurchase();
+            String itemsProductCode = menu.menuOutput();
+
+            menu.UserEnteredQuantity();
+            int quantityDesired = menu.PurchaseMenuOutput();
+            if (!(cateringItemMap.containsKey(itemsProductCode))) {
+                menu.singleLineMessages("Sorry, product does not exist");
+                menu.printSubMenu2();
+            }
+            if (cateringItemMap.get(itemsProductCode).getQuantity() < quantityDesired) {
+                menu.singleLineMessages("Sorry, there is not enough product in stock");
+                menu.printSubMenu2();
+            }
+            if (!(cateringSystem.getCurrentAccountBalance() >= cateringItemMap.get(itemsProductCode).getPrice())) {
+                menu.singleLineMessages("Sorry, you don't have enough money for this");
+                menu.printSubMenu2();
+            }
+            if (cateringItemMap.get(itemsProductCode).getQuantity() == 0) {
+                menu.singleLineMessages("Product out of stock!");
+                menu.printSubMenu2();
+            }
+            if (cateringItemMap.containsKey(itemsProductCode) && cateringItemMap.get(itemsProductCode).getQuantity() >= quantityDesired && cateringSystem.getCurrentAccountBalance() >= cateringItemMap.get(itemsProductCode).getPrice()) {
+                cateringSystem.addToCart(itemsProductCode, quantityDesired);
+
+                //cateringSystem.updatingBalanceAfterShopping(cateringItemMap.get(itemsProductCode).getPrice(), quantityDesired);
+                menu.printSubMenu2();
+                menu.ShowCurrentBalance(cateringSystem.updatingBalanceAfterShopping(cateringItemMap.get(itemsProductCode).getPrice(), quantityDesired));
+                //everything above this line is ok.
+             // doesnt work right now   cateringSystem.updatingItemQuantityInMap(itemsProductCode, quantityDesired);
+                menu.PrintCateringItems(cateringItemMap);
+
+            }
+
+        } else if (menu.menuOutput().equals("3"))
+        {
+
+            menu.printReceipt(cateringItemMap, 3);
+            cateringSystem.makeChange();
+            System.out.println();
+            //resets balance
+            //cateringSystem.resetBalance();
+
+
+        }
+
+
+
+
+    }
 }
+
+
+
+
 
 
 

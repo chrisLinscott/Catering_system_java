@@ -1,11 +1,7 @@
 package com.techelevator.view;
 
-import com.techelevator.filereader.InventoryFileReader;
 import com.techelevator.items.CateringItem;
-import com.techelevator.items.Customer;
 
-import java.io.FileNotFoundException;
-import java.sql.SQLOutput;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -20,7 +16,7 @@ import java.util.Scanner;
 public class Menu {
 	
 	private static final Scanner userInput = new Scanner(System.in);
-private Customer customer;
+
 	public void showWelcomeMessage() {
 		System.out.println("*************************");
 		System.out.println("**     Weyland Corp.   **");
@@ -62,20 +58,21 @@ public void printSubMenu2(){
 	System.out.println("(3) Complete Transaction");
 
 }
-	public float moneyMenuOutput() {
-		Float moneyToAddFloat = Float.parseFloat(userInput.nextLine());
-		return moneyToAddFloat;
+	public Integer moneyMenuOutput() {
+		Integer moneyToAddInt= Integer.parseInt(userInput.nextLine());
+		return moneyToAddInt;
 	}
 public void printAddedMoney (){
 	System.out.println("How much money would you like to add(up to $500.00)?");
 
 }
-public void showAddedToBalance(float amountAdded){
-	System.out.println("$"+ amountAdded +   " is being added to your balance");
-	//System.out.println("Current Balance = "+ ());
-	// this is supposed to bring us back to our menu options...
-	printSubMenu2();
-}
+// redundant because we are printing account balance anyways
+// public void showAddedToBalance(float amountAdded){
+//	System.out.println("$"+ amountAdded +   " is being added to your balance");
+//	//System.out.println("Current Balance = "+ ());
+//	// this is supposed to bring us back to our menu options...
+//	printSubMenu2();
+
 public void ShowCurrentBalance(float balance){
 	System.out.println("Your current balance is $"+ balance );
 }
@@ -88,9 +85,29 @@ public void ShowCustomerPurchase(){
 	}
 	public void UserEnteredQuantity (){
 		System.out.println("Thanks, please enter the quantity");
-
-
 	}
+	public void singleLineMessages(String message){
+		System.out.println(message);
+	}
+
+	public void printReceipt (Map<String, CateringItem> showUser, int desiredQuantity){
+		System.out.println("Catering Menu is Listed Below");
+		System.out.println();
+		System.out.println("Product Code      Item Name      Quantity Available     Price"   );
+		for ( Map.Entry<String, CateringItem> mapEntry : showUser.entrySet()) {
+			System.out.print(    desiredQuantity);
+			System.out.println("   "+ mapEntry.getValue().getItemType());
+			System.out.print("    " +mapEntry.getValue().getItemName()+"           " );
+			System.out.println("$" +mapEntry.getValue().getPrice());
+			System.out.println(("$"+mapEntry.getValue().getPrice() * desiredQuantity));
+			System.out.println("message");
+
+
+		}
+		System.out.println();
+	}
+
+
 }
 
 
