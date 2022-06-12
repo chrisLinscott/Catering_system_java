@@ -28,12 +28,14 @@ public class Menu {
 	public void PrintCateringItems (Map<String, CateringItem> showUser){
 		System.out.println("Catering Menu is Listed Below");
 		System.out.println();
-		System.out.println("Product Code      Item Name      Quantity Available     Price"   );
+		System.out.println("Product Code           Item Name   Quantity Available   Price"   );
 		for ( Map.Entry<String, CateringItem> mapEntry : showUser.entrySet()) {
-			System.out.print("    "+ mapEntry.getValue().getProductCode()+ "       ");
-			System.out.print("    " +mapEntry.getValue().getItemName()+"           " );
-			System.out.print(mapEntry.getValue().getQuantity()+ " " );
-			System.out.println("$" +mapEntry.getValue().getPrice());
+			System.out.println(String.format("%6s %30s %6s %10s",mapEntry.getValue().getProductCode(),mapEntry.getValue().getItemName()
+					,mapEntry.getValue().getQuantity(),String.format("$%.2f",mapEntry.getValue().getPrice())));
+//			System.out.print("    "+mapEntry.getValue().getProductCode()+ "       ");
+//			System.out.print("    " +mapEntry.getValue().getItemName()+"           " );
+//			System.out.print(mapEntry.getValue().getQuantity()+ " " );
+//			System.out.println("$" +mapEntry.getValue().getPrice());
 		}
 		System.out.println();
 	}
