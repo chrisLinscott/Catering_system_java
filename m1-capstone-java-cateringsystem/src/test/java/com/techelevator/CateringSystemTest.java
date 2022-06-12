@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -49,17 +50,23 @@ public class CateringSystemTest {
         //     float actualBalance = cateringSystem.addMoney(501);
     }
 
-//    @Test
-//    public void grabbing_quantity_correctly() {
-//
-//        String testCode = "E5";
-//
-//        Map<String, CateringSystem> expectedResult = new TreeMap<>();
-//        expectedResult.put(testCode, cateringSystem);
-//        expectedResult.put(testCode, cateringSystem);
-//
-//        int result = cateringSystem.getQuantity(testCode);
-//        Assert.assertEquals(expectedResult, result);
-//    }
+    @Test
+    public void making_change_correctly() {
 
+        float testBalance = 45;
+
+        Map<Float, Integer> expectedResult = new LinkedHashMap<>();
+        expectedResult.put(50F,0);
+        expectedResult.put(20F,2 );
+        expectedResult.put(10F,0);
+        expectedResult.put(5F,1);
+        expectedResult.put(1F,0);
+        expectedResult.put(.25F,0);
+        expectedResult.put(.1F,0);
+        expectedResult.put(.05F,0);
+
+        Map<Float,Integer> result = cateringSystem.makeChange(testBalance);
+        Assert.assertEquals(expectedResult, result);
+    }
+//@Test
 }

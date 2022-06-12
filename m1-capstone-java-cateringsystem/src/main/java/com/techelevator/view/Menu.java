@@ -44,7 +44,7 @@ public class Menu {
 		System.out.println("File not found");
 	}
 	public  void printStartingMenu() {
-		System.out.println("Select and option below to proceed");
+		System.out.println("Select an option below to proceed");
 		System.out.println("(1) Display Catering Items");
 		System.out.println("(2) Order");
 		System.out.println("(3) Quit");
@@ -76,7 +76,7 @@ public void printAddedMoney (){
 //	printSubMenu2();
 
 public void ShowCurrentBalance(float balance){
-	System.out.println("Your current balance is $"+ balance );
+	System.out.println("Your current balance is $"+ balance +"\n");
 }
 public void ShowCustomerPurchase(){
 	System.out.println("Please enter the product code for the item you would like to buy");
