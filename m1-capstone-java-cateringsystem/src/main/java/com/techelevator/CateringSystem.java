@@ -72,7 +72,6 @@ public class CateringSystem extends Money {
 
     }
 
-
     public void readingFileInventory() throws FileNotFoundException {
         inventoryFileReader = new InventoryFileReader("cateringsystem.csv");
         cateringItemMap = inventoryFileReader.readFileInventory();
