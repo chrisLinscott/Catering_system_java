@@ -158,8 +158,8 @@ public class CateringSystemCLI {
             menu.printReceipt(cateringSystem.getShoppingCart());
 
             cateringSystem.resetBalance();
-
-
+            System.out.println();
+            menu.printStartingMenu();
         }
 
 

@@ -34,6 +34,7 @@ public class CateringSystem extends Money {
     int numberOfDimes;
     int numberOfNickels;
 
+public CateringSystem(){}
 
     public CateringSystem(Map<String, CateringItem> cateringItemMap) {
         this.cateringItemMap = cateringItemMap;
