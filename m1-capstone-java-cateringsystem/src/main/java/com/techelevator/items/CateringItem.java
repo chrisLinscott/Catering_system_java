@@ -10,12 +10,18 @@ public class CateringItem {
     private int quantity;
     private float price;
     private final int startingQuantity= 25;
+    private String messageReminder;
 
    public CateringItem(String itemName, float price){
        this.itemName=itemName;
        this.price=price;
 
    }
+
+    public String getMessageReminder() {
+        return messageReminder;
+    }
+
     public String getProductCode() {
         return productCode;
     }

@@ -90,23 +90,16 @@ public void ShowCustomerPurchase(){
 		System.out.println(message);
 	}
 
-	public void printReceipt (Map<String, CateringItem> showUser, int desiredQuantity){
-		System.out.println("Catering Menu is Listed Below");
-		System.out.println();
-		System.out.println("Product Code      Item Name      Quantity Available     Price"   );
-		for ( Map.Entry<String, CateringItem> mapEntry : showUser.entrySet()) {
-			System.out.print(    desiredQuantity);
-			System.out.println("   "+ mapEntry.getValue().getItemType());
-			System.out.print("    " +mapEntry.getValue().getItemName()+"           " );
-			System.out.println("$" +mapEntry.getValue().getPrice());
-			System.out.println(("$"+mapEntry.getValue().getPrice() * desiredQuantity));
-			System.out.println("message");
-
-
+	public void printReceipt (String[][] receiptArray){
+		for(String[] itemsAddedToReceipt: receiptArray) {
+			System.out.println(String.format("%5s %5s %5s %5s %5s %5s",itemsAddedToReceipt[0], itemsAddedToReceipt[1], itemsAddedToReceipt[2],"$"+ itemsAddedToReceipt[3], "$" + itemsAddedToReceipt[4], itemsAddedToReceipt[5]));
 		}
-		System.out.println();
-	}
 
+	}
+	public void displayChange(Map<Float, Integer> billMap){
+
+		System.out.println(billMap);
+	}
 
 }
 
