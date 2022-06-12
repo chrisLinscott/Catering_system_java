@@ -98,7 +98,7 @@ public CateringSystem(){}
     }
 
     public void addMoney(Integer moneyToAdd) {
-        if (moneyToAdd <= 500 && getCurrentAccountBalance() < 1500)
+        if (moneyToAdd <= 500 && getCurrentAccountBalance() < 1500 &&moneyToAdd>=0)
             currentAccountBalance += moneyToAdd;
 
     }
