@@ -2,18 +2,16 @@ package com.techelevator;
 
 import com.techelevator.filereader.InventoryFileReader;
 import com.techelevator.items.CateringItem;
-<<<<<<< HEAD
-import com.techelevator.items.Customer;
-import com.techelevator.items.ShoppingCart;
+
 import com.techelevator.view.Menu;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;
-=======
+
 import com.techelevator.view.Menu;
 
 import java.io.FileNotFoundException;
->>>>>>> 979a68030f5326248d64a13fd65a2379b2bf7fad
+
 import java.util.Map;
 
 /*
@@ -73,29 +71,24 @@ public class CateringSystemCLI {
 
         inventoryFileReader = new InventoryFileReader("cateringsystem.csv");
         try {
-            cateringItemMap = inventoryFileReader.readFileInventory();
+        cateringSystem = new CateringSystem(inventoryFileReader.readFileInventory());
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        cateringSystem = new CateringSystem(inventoryFileReader.getCateringItemMap());
 
 
-//        try {
-//            //this is probably not necessary....TBD
-//            cateringItemMap = inventoryFileReader.readFileInventory();
-//        } catch (FileNotFoundException e) {
-//            menu.fileNotFoundError();
-//        }
         while (true) {
             String menuOneOutput = menu.menuOutput();
             // next two lines are ok, cant make more concise
             if (menuOneOutput.equals("1")) {
-                menu.PrintCateringItems(cateringItemMap);
+                menu.PrintCateringItems(cateringSystem.getCateringItemMap());
                 menu.printStartingMenu();
             } else if (menuOneOutput.equals("2")) {
                 //instead of our previous break, go to next method
                 runSubMenuTwo();
             } else { //this closes the program and should go to exit code , make menu method to display closing message.
+                menu.singleLineMessages("Goodbye");
                 break;
             }
         }
@@ -124,50 +117,47 @@ public class CateringSystemCLI {
             runSubMenuTwo();
         }
 //shopping cart---- this is really long...
-        if (menu.menuOutput().equals("2")) {
+        if (menuTwoOutput.equals("2")) {
 
-            menu.PrintCateringItems(cateringItemMap);
+            menu.PrintCateringItems(cateringSystem.getCateringItemMap());
             menu.ShowCustomerPurchase();
             String itemsProductCode = menu.menuOutput();
 
             menu.UserEnteredQuantity();
             int quantityDesired = menu.PurchaseMenuOutput();
-            if (!(cateringItemMap.containsKey(itemsProductCode))) {
+            if (!(cateringSystem.getCateringItemMap().containsKey(itemsProductCode))) {
                 menu.singleLineMessages("Sorry, product does not exist");
-                menu.printSubMenu2();
+                runSubMenuTwo();
             }
-            if (cateringItemMap.get(itemsProductCode).getQuantity() < quantityDesired) {
+            if (cateringSystem.getQuantity(itemsProductCode) < quantityDesired) {
                 menu.singleLineMessages("Sorry, there is not enough product in stock");
-                menu.printSubMenu2();
-            }
-            if (!(cateringSystem.getCurrentAccountBalance() >= cateringItemMap.get(itemsProductCode).getPrice())) {
+                runSubMenuTwo();
+            } //dont really need this next if statement but we will keep it anyways
+            if (!(cateringSystem.getCurrentAccountBalance() >= cateringSystem.getCateringItemMap().get(itemsProductCode).getPrice())) {
                 menu.singleLineMessages("Sorry, you don't have enough money for this");
-                menu.printSubMenu2();
+                runSubMenuTwo();
             }
-            if (cateringItemMap.get(itemsProductCode).getQuantity() == 0) {
+            if (cateringSystem.getCateringItemMap().get(itemsProductCode).getQuantity() == 0) {
                 menu.singleLineMessages("Product out of stock!");
-                menu.printSubMenu2();
+                runSubMenuTwo();
             }
-            if (cateringItemMap.containsKey(itemsProductCode) && cateringItemMap.get(itemsProductCode).getQuantity() >= quantityDesired && cateringSystem.getCurrentAccountBalance() >= cateringItemMap.get(itemsProductCode).getPrice()) {
+            if (cateringSystem.getCateringItemMap().containsKey(itemsProductCode) && cateringSystem.getQuantity(itemsProductCode) >= quantityDesired && cateringSystem.getCurrentAccountBalance() >= cateringSystem.getCateringItemMap().get(itemsProductCode).getPrice()) {
                 cateringSystem.addToCart(itemsProductCode, quantityDesired);
 
-                //cateringSystem.updatingBalanceAfterShopping(cateringItemMap.get(itemsProductCode).getPrice(), quantityDesired);
-                menu.printSubMenu2();
-                menu.ShowCurrentBalance(cateringSystem.updatingBalanceAfterShopping(cateringItemMap.get(itemsProductCode).getPrice(), quantityDesired));
-                //everything above this line is ok.
-             // doesnt work right now   cateringSystem.updatingItemQuantityInMap(itemsProductCode, quantityDesired);
-                menu.PrintCateringItems(cateringItemMap);
+
+                menu.ShowCurrentBalance(cateringSystem.updatingBalanceAfterShopping(cateringSystem.getCateringItemMap().get(itemsProductCode).getPrice(), quantityDesired));
+                runSubMenuTwo();
 
             }
 
-        } else if (menu.menuOutput().equals("3"))
+        } if (menuTwoOutput.equals("3"))
         {
+            menu.singleLineMessages("Thank you for shopping, your receipt and change is below.");
 
-            menu.printReceipt(cateringItemMap, 3);
-            cateringSystem.makeChange();
-            System.out.println();
-            //resets balance
-            //cateringSystem.resetBalance();
+            menu.displayChange(cateringSystem.makeChange(cateringSystem.getCurrentAccountBalance()));
+            menu.printReceipt(cateringSystem.getShoppingCart());
+
+            cateringSystem.resetBalance();
 
 
         }
