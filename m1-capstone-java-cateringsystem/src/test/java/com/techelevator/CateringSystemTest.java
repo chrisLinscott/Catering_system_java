@@ -42,31 +42,31 @@ public class CateringSystemTest {
         float actualBalance = cateringSystem.resetBalance();
         Assert.assertEquals(testBalance, actualBalance, .009);
     }
-
-    @Test
-    public void adding_more_than_500_at_one_time() {
-        float testBalance = 0;
-
-        //     float actualBalance = cateringSystem.addMoney(501);
-    }
+//    struggled to figure how to unit test for void methods...
+//    @Test
+//    public void adding_more_than_500_at_one_time() {
+//        float testBalance = 0;
+//
+//        //     float actualBalance = cateringSystem.addMoney(501);
+//    }
 
     @Test
     public void making_change_correctly() {
 
-        float testBalance = 45;
+        float testBalance = 146.85F;
 
         Map<Float, Integer> expectedResult = new LinkedHashMap<>();
-        expectedResult.put(50F,0);
+        expectedResult.put(50F,2);
         expectedResult.put(20F,2 );
         expectedResult.put(10F,0);
         expectedResult.put(5F,1);
-        expectedResult.put(1F,0);
-        expectedResult.put(.25F,0);
-        expectedResult.put(.1F,0);
+        expectedResult.put(1F,1);
+        expectedResult.put(.25F,3);
+        expectedResult.put(.1F,1);
         expectedResult.put(.05F,0);
 
         Map<Float,Integer> result = cateringSystem.makeChange(testBalance);
         Assert.assertEquals(expectedResult, result);
     }
-//@Test
+
 }
