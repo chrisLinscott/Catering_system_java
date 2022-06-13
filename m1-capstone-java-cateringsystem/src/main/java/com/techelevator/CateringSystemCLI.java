@@ -1,6 +1,7 @@
 package com.techelevator;
 
 import com.techelevator.filereader.InventoryFileReader;
+import com.techelevator.filereader.LogFileWriter;
 import com.techelevator.items.CateringItem;
 
 import com.techelevator.view.Menu;
@@ -39,6 +40,7 @@ public class CateringSystemCLI {
     private InventoryFileReader inventoryFileReader;
 
 
+
     public CateringSystemCLI(Menu menu) {
 
         this.menu = menu;
@@ -51,7 +53,6 @@ public class CateringSystemCLI {
     public static void main(String[] args) {
         Menu menu = new Menu();
         CateringSystemCLI cli = new CateringSystemCLI(menu);
-
 
         cli.run();
 
@@ -115,6 +116,8 @@ public class CateringSystemCLI {
             Float workingBalance = cateringSystem.getCurrentAccountBalance();
             menu.ShowCurrentBalance(workingBalance);
             runSubMenuTwo();
+
+
         }
 //shopping cart---- this is really long...
         if (menuTwoOutput.equals("2")) {
@@ -153,11 +156,10 @@ public class CateringSystemCLI {
         } if (menuTwoOutput.equals("3"))
         {
             menu.singleLineMessages("Thank you for shopping, your receipt and change is below.");
-
+            menu.ShowCurrentBalance(cateringSystem.getCurrentAccountBalance());
             menu.displayChange(cateringSystem.makeChange(cateringSystem.getCurrentAccountBalance()));
             menu.printReceipt(cateringSystem.getShoppingCart());
 
-            cateringSystem.resetBalance();
             System.out.println();
             menu.printStartingMenu();
         }

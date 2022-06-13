@@ -1,6 +1,7 @@
 package com.techelevator;
 
 import com.techelevator.filereader.InventoryFileReader;
+import com.techelevator.filereader.LogFileWriter;
 import com.techelevator.items.*;
 
 import java.io.FileNotFoundException;
@@ -23,6 +24,7 @@ public class CateringSystem extends Money {
     private Map<String, CateringItem> cateringItemMap;
     private CateringSystem cateringSystem;
     Map<String, Integer> shoppingCart = new HashMap<>();
+    private LogFileWriter logFileWriter = new LogFileWriter();
     private int updatedItemCount;
     private CateringItem cateringItem;
     int numberOfFifties;
@@ -39,7 +41,9 @@ public CateringSystem(){}
     public CateringSystem(Map<String, CateringItem> cateringItemMap) {
         this.cateringItemMap = cateringItemMap;
 
+
     }
+
 
 
     public int getNumberOfFifties() {
@@ -81,6 +85,7 @@ public CateringSystem(){}
     public void readingFileInventory() throws FileNotFoundException {
         inventoryFileReader = new InventoryFileReader("cateringsystem.csv");
         cateringItemMap = inventoryFileReader.readFileInventory();
+
     }
 //    public CateringSystem(Map<String, CateringItem> inventory) {
 //        inventoryFileReader.readFileInventory();
@@ -100,6 +105,8 @@ public CateringSystem(){}
     public void addMoney(Integer moneyToAdd) {
         if (moneyToAdd <= 500 && getCurrentAccountBalance() < 1500)
             currentAccountBalance += moneyToAdd;
+        logFileWriter.moneyAdded(moneyToAdd, currentAccountBalance);
+
 
     }
 
@@ -108,6 +115,7 @@ public CateringSystem(){}
         shoppingCart.put(itemsProductCode, quantityDesired);
         CateringItem item = cateringItemMap.get(itemsProductCode);
         item.setQuantity(item.getQuantity() - quantityDesired);
+        logFileWriter.itemBought( item.getItemName(), (item.getPrice() * quantityDesired),quantityDesired, itemsProductCode, currentAccountBalance );
 
 
     }
@@ -158,13 +166,21 @@ public CateringSystem(){}
         Map<Float, Integer> billMap = new LinkedHashMap<>();
         float[] bills = new float[]{50, 20, 10, 5, 1, 0.25F, .10F, .05F};
         {
+            float remainderAfterValues = 0;
+            logFileWriter.givingChange(currentAccountBalance, 0);
+
             for (int i = 0; i < bills.length; i++) {
-                float remainderAfterValues = currentAccountBalance % bills[i];
+                remainderAfterValues = currentAccountBalance % bills[i];
                 float numberOfBills = (currentAccountBalance - remainderAfterValues) / bills[i];
                 currentAccountBalance = remainderAfterValues;
                 billMap.put(bills[i], (int) numberOfBills);
 
+
             }
+
+            resetBalance();
+
+
             return billMap;
         }
     }
